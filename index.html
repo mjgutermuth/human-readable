@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Human Readable Media — Technical Video Production</title>
+  <meta name="description" content="One-person technical video production for dev tools and SaaS companies. Script, present, record, and deliver.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #fafaf8;
+      --bg-alt:     #f2efe8;
+      --text:       #111110;
+      --text-muted: #6b6a65;
+      --accent:     #d04a00;
+      --border:     #dedad2;
+      --max-w:      1100px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    /* ─── Nav ─────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+    }
+
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+    }
+
+    .nav-logo {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ─── Shared ──────────────────────────────── */
+    section { padding: 5rem 2rem; }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.12;
+      margin-bottom: 1rem;
+    }
+
+    .section-intro {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 55ch;
+      line-height: 1.75;
+      margin-bottom: 3rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.6rem;
+      background: var(--text);
+      color: var(--bg);
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 3px;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .btn:hover {
+      background: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* ─── Hero ────────────────────────────────── */
+    .hero {
+      padding: 7rem 2rem 6rem;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 6.5vw, 4.75rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      max-width: 18ch;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 46ch;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-micro {
+      margin-bottom: 1.25rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .hero-trust {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ─── Services ────────────────────────────── */
+    .services {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      border: 1px solid var(--border);
+      background: var(--border);
+      gap: 1px;
+    }
+
+    .service-card {
+      background: var(--bg-alt);
+      padding: 2rem 1.75rem;
+    }
+
+    .service-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .service-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .service-card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ─── Portfolio ───────────────────────────── */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .video-card {
+      display: block;
+      text-decoration: none;
+      background: #141412;
+      border-radius: 4px;
+      overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+    }
+
+    .video-thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      display: block;
+    }
+
+    .video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease, opacity 0.2s;
+    }
+
+    .video-card:hover .video-thumb img {
+      transform: scale(1.04);
+      opacity: 0.8;
+    }
+
+    .play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .play-btn-circle {
+      width: 52px;
+      height: 52px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: scale(0.9);
+      transition: transform 0.2s;
+    }
+
+    .play-btn-circle svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+      margin-left: 3px;
+    }
+
+    .video-card:hover .play-btn { opacity: 1; }
+    .video-card:hover .play-btn-circle { transform: scale(1); }
+
+    .video-info {
+      padding: 0.85rem 1rem 1.1rem;
+    }
+
+    .video-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+
+    .video-info h3 {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #e4e1da;
+      line-height: 1.4;
+    }
+
+    /* ─── About ───────────────────────────────── */
+    .about {
+      border-top: 1px solid var(--border);
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 1.02rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 1.1rem;
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 0.5rem;
+    }
+
+    .stat {
+      background: var(--bg);
+      padding: 1.5rem 1.25rem;
+    }
+
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ─── Contact ─────────────────────────────── */
+    .contact {
+      background: var(--text);
+      color: var(--bg);
+      border-top: none;
+    }
+
+    .contact .label { color: rgba(250, 250, 248, 0.4); }
+
+    .contact h2 { color: var(--bg); }
+
+    .contact-sub {
+      font-size: 1.1rem;
+      color: rgba(250, 250, 248, 0.55);
+      max-width: 48ch;
+      line-height: 1.75;
+      margin-bottom: 2.25rem;
+    }
+
+    .btn-inverted {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .btn-inverted:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* ─── Testimonials ───────────────────────── */
+    .testimonials {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.75rem;
+      margin-top: 2.5rem;
+    }
+
+    .testimonial-quote {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text);
+      margin: 0 0 0.6rem;
+    }
+
+    .testimonial-handle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ─── Portfolio toggle ────────────────────── */
+    .portfolio-more { display: none; }
+
+    .portfolio-toggle {
+      margin-top: 2rem;
+      background: none;
+      border: 1px solid var(--border);
+      padding: 0.65rem 1.4rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 3px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .portfolio-toggle:hover {
+      color: var(--text);
+      border-color: var(--text-muted);
+    }
+
+    /* ─── Footer ──────────────────────────────── */
+    footer {
+      padding: 1.25rem 2rem;
+      background: var(--text);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.82rem;
+      color: rgba(250,250,248,0.35);
+    }
+
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ─── Responsive ──────────────────────────── */
+    @media (max-width: 700px) {
+      .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 5rem 1.5rem 4rem; }
+      section { padding: 4rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Human Readable Media</a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero-eyebrow">Technical Video for Developer Tools</span>
+      <h1>Making developer tools human-readable.</h1>
+      <p class="hero-micro">Tutorials, product walkthroughs, and technical explainers.</p>
+      <p class="hero-sub">Developer tools are powerful, but explaining them well is hard. I produce clear, developer-focused tutorials from start to finish. Scripting, demos, presentation, and delivery, with the technical background to truly understand the product.</p>
+      <a href="#contact" class="btn">Let's talk</a>
+    </div>    
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="container">
+      <span class="label">What I do</span>
+      <h2>Full-stack video production,<br>minus the full-size team.</h2>
+      <p class="section-intro">I work with you from concept to final cut. You receive a ready-to-publish technical video that clearly explains your product.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <p class="service-num">01</p>
+          <h3>Technical Scripting</h3>
+          <p>Scripts written at the right technical depth for your audience.</p>
+        </div>
+        <div class="service-card">
+          <p class="service-num">02</p>
+          <h3>On-Camera &amp; Voiceover</h3>
+          <p>Presented on camera or with professional VO.</p>
+        </div>
+        <div class="service-card">
+          <p class="service-num">03</p>
+          <h3>Screen Recording &amp; Demos</h3>
+          <p>Hands-on walkthroughs of your tools, using real code and real workflows.</p>
+        </div>
+        <div class="service-card">
+          <p class="service-num">04</p>
+          <h3>Editing &amp; Delivery</h3>
+          <p>A finished video, ready to publish on your channels.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio" style="border-top:1px solid var(--border);">
+    <div class="container">
+      <span class="label">Portfolio</span>
+      <h2>Recent work.</h2>
+      <p class="section-intro">Videos from my time on the Postman team. I wrote, presented, and owned all technical content.</p>
+      <div class="portfolio-grid">
+
+        <a href="https://www.youtube.com/watch?v=d93RZtFbufA" target="_blank" rel="noopener" class="video-card">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/d93RZtFbufA/maxresdefault.jpg" alt="Rapid API Prototyping with Postman Mock Servers and Agent Mode">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Tutorial</p>
+            <h3>Rapid API Prototyping with Postman Mock Servers and Agent Mode</h3>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=har-WJ8dxhY" target="_blank" rel="noopener" class="video-card">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/har-WJ8dxhY/maxresdefault.jpg" alt="How to Automate API Tests with Agent Mode">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">API Education</p>
+            <h3>How to Automate API Tests with Agent Mode</h3>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=V186qpoMrqA" target="_blank" rel="noopener" class="video-card">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/V186qpoMrqA/maxresdefault.jpg" alt="Build Self-Verifying API Documentation">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Product Education</p>
+            <h3>Build Self-Verifying API Documentation</h3>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=-0MmWEYR2a8" target="_blank" rel="noopener" class="video-card">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/-0MmWEYR2a8/maxresdefault.jpg" alt="What is an API?">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">API Education</p>
+            <h3>What is an API?</h3>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=5ubi8Dwokp0" target="_blank" rel="noopener" class="video-card">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/5ubi8Dwokp0/maxresdefault.jpg" alt="What is an Async API?">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">API Education</p>
+            <h3>What is an Async API?</h3>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=NCQj2dBVUCQ" target="_blank" rel="noopener" class="video-card">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/NCQj2dBVUCQ/maxresdefault.jpg" alt="Webhooks vs REST APIs">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Product Education</p>
+            <h3>Webhooks vs REST APIs</h3>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=_y6sHOT132o" target="_blank" rel="noopener" class="video-card">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/_y6sHOT132o/maxresdefault.jpg" alt="Multi-Environment API Monitor Setup Using Postman">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Tutorial</p>
+            <h3>Multi-Environment API Monitor Setup Using Postman</h3>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=IbyYUTBDVXQ" target="_blank" rel="noopener" class="video-card">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/IbyYUTBDVXQ/maxresdefault.jpg" alt="Validate Response Data With JSON Schema">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Tutorial</p>
+            <h3>Validate Response Data With JSON Schema</h3>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=NwT062tYvzs" target="_blank" rel="noopener" class="video-card">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/NwT062tYvzs/maxresdefault.jpg" alt="Working With Your Team in Postman">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Tutorial</p>
+            <h3>Working With Your Team in Postman</h3>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=Kr8OVXjzw4k" target="_blank" rel="noopener" class="video-card portfolio-more">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/Kr8OVXjzw4k/maxresdefault.jpg" alt="Navigating the Postman App Interface">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Tutorial</p>
+            <h3>Navigating the Postman App Interface</h3>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=pRIG0Ujphoc" target="_blank" rel="noopener" class="video-card portfolio-more">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/pRIG0Ujphoc/maxresdefault.jpg" alt="Share a Collection With a Guest User">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Tutorial</p>
+            <h3>Share a Collection With a Guest User</h3>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=tw7x3yBpU1Y" target="_blank" rel="noopener" class="video-card portfolio-more">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/tw7x3yBpU1Y/maxresdefault.jpg" alt="How to Share Postman Collections Using JSON Links">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Tutorial</p>
+            <h3>How to Share Postman Collections Using JSON Links</h3>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=QAIH1D203Wg" target="_blank" rel="noopener" class="video-card portfolio-more">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/QAIH1D203Wg/maxresdefault.jpg" alt="Use Collection and Workspace Templates">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Tutorial</p>
+            <h3>Use Collection and Workspace Templates</h3>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=X6Yi8aJOLds" target="_blank" rel="noopener" class="video-card portfolio-more">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/X6Yi8aJOLds/maxresdefault.jpg" alt="Customize Public Documentation">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Tutorial</p>
+            <h3>Customize Public Documentation</h3>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=H-93OfONSsg" target="_blank" rel="noopener" class="video-card portfolio-more">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/H-93OfONSsg/maxresdefault.jpg" alt="Requesting Edit Access">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Tutorial</p>
+            <h3>Requesting Edit Access</h3>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=sIVjJBWqhPc" target="_blank" rel="noopener" class="video-card portfolio-more">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/sIVjJBWqhPc/maxresdefault.jpg" alt="Discovering API Categories">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Tutorial</p>
+            <h3>Discovering API Categories</h3>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=xM_sskJmZNM" target="_blank" rel="noopener" class="video-card portfolio-more">
+          <span class="video-thumb">
+            <img src="https://img.youtube.com/vi/xM_sskJmZNM/maxresdefault.jpg" alt="Customize Your Public Profile">
+            <span class="play-btn"><span class="play-btn-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Tutorial</p>
+            <h3>Customize Your Public Profile</h3>
+          </div>
+        </a>
+
+      </div>
+      <button class="portfolio-toggle" id="portfolioToggle">Show all 17 videos</button>
+    </div>
+  </section>
+
+  <script>
+    const toggle = document.getElementById('portfolioToggle');
+    const more = document.querySelectorAll('.portfolio-more');
+    let expanded = false;
+    toggle.addEventListener('click', () => {
+      expanded = !expanded;
+      more.forEach(el => el.style.display = expanded ? 'block' : 'none');
+      toggle.textContent = expanded ? 'Show fewer' : 'Show all 17 videos';
+    });
+  </script>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="container">
+      <span class="label">What viewers say</span>
+      <div class="testimonials-grid">
+        <div>
+          <p class="testimonial-quote">"This is going to be invaluable when I'm explaining my role. Thank you Melinda!"</p>
+          <p class="testimonial-handle">@KamalpreetB</p>
+        </div>
+        <div>
+          <p class="testimonial-quote">"Straight to the point, clear and concise."</p>
+          <p class="testimonial-handle">@mrch33sehed93</p>
+        </div>
+        <div>
+          <p class="testimonial-quote">"Melinda has explained the difference between the terminologies in a very easy and interesting way."</p>
+          <p class="testimonial-handle">@TejasPhase</p>
+        </div>
+        <div>
+          <p class="testimonial-quote">"Excellent metaphor Melinda! Thank you."</p>
+          <p class="testimonial-handle">@snafu5200</p>
+        </div>
+        <div>
+          <p class="testimonial-quote">"Helpful. Best I've ever heard."</p>
+          <p class="testimonial-handle">@dtikvxcdgjbv7975</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-text">
+          <span class="label">About</span>
+          <h2>Hi, I'm Melinda.</h2>
+          <p>After more than ten years helping developers navigate everything from Linux systems to APIs, I've learned what makes technical content stick. Most presenters are either technical or camera-trained. I'm both. System administration, DevOps, writing, DevRel, content marketing, and professional voiceover training all come together in the videos I create, so your product gets the spotlight it deserves.</p>
+        </div>
+        <div class="about-stats">
+          <div class="stat">
+            <div class="stat-number">1M+</div>
+            <div class="stat-label">Views on a technical tutorial</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Years in technical content</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">1</div>
+            <div class="stat-label">Person, no handoffs</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Unnecessary syncs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <span class="label">Contact</span>
+      <h2>Need a technical tutorial?</h2>
+      <p class="contact-sub">Tell me what you're building. I'll tell you how I can help.</p>
+      <!-- TODO: Replace with your actual email address -->
+      <a href="mailto:hello@humanreadable.media" class="btn btn-inverted">Get in touch</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <span>Human Readable Media — Technical video for developer tools.</span>
+      <span style="display:flex;align-items:center;gap:1.25rem;">
+        <a href="https://www.linkedin.com/in/mjgutermuth/" target="_blank" rel="noopener" style="color:rgba(250,250,248,0.35);text-decoration:none;transition:color 0.15s;" onmouseover="this.style.color='rgba(250,250,248,0.7)'" onmouseout="this.style.color='rgba(250,250,248,0.35)'">LinkedIn</a>
+        <span>&copy; 2026</span>
+      </span>
+    </div>
+  </footer>
+
+</body>
+</html>
