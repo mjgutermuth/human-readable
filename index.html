@@ -376,6 +376,69 @@
       color: white;
     }
 
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 48ch;
+    }
+
+    .contact-form-row {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      background: rgba(250, 250, 248, 0.06);
+      border: 1px solid rgba(250, 250, 248, 0.2);
+      border-radius: 3px;
+      padding: 0.75rem 1rem;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--bg);
+      resize: vertical;
+      transition: border-color 0.15s;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: rgba(250, 250, 248, 0.4);
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .contact-form button {
+      align-self: flex-start;
+      border: none;
+      cursor: pointer;
+    }
+
+    .contact-form button:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .contact-form-status {
+      font-size: 0.9rem;
+      margin: 0;
+      min-height: 1.2em;
+    }
+
+    .contact-form-status.is-success { color: #8fd19e; }
+    .contact-form-status.is-error { color: #e08a7d; }
+
+    @media (max-width: 560px) {
+      .contact-form-row {
+        flex-direction: column;
+      }
+    }
+
     /* ─── Testimonials ───────────────────────── */
     .testimonials {
       background: var(--bg-alt);
@@ -781,10 +844,60 @@
       <span class="label">Contact</span>
       <h2>Need a technical tutorial?</h2>
       <p class="contact-sub">Tell me what you're building. I'll tell you how I can help.</p>
-      <!-- TODO: Replace with your actual email address -->
-      <a href="mailto:hello@humanreadable.media" class="btn btn-inverted">Get in touch</a>
+      <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="35fc1a8e-723d-4c78-85a1-f35049e1537d">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+        <div class="contact-form-row">
+          <input type="text" name="name" placeholder="Name" required>
+          <input type="email" name="email" placeholder="Email" required>
+        </div>
+        <textarea name="message" rows="5" placeholder="Tell me what you're building" required></textarea>
+        <button type="submit" class="btn btn-inverted">Send message</button>
+        <p class="contact-form-status" id="contact-form-status" role="status"></p>
+      </form>
     </div>
   </section>
+
+  <script>
+    (function () {
+      var form = document.getElementById('contact-form');
+      var status = document.getElementById('contact-form-status');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var submitBtn = form.querySelector('button[type="submit"]');
+        var data = Object.fromEntries(new FormData(form));
+
+        submitBtn.disabled = true;
+        status.textContent = '';
+        status.className = 'contact-form-status';
+
+        fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(data)
+        })
+          .then(function (res) { return res.json(); })
+          .then(function (result) {
+            if (result.success) {
+              form.reset();
+              status.textContent = "Thanks — I'll get back to you soon.";
+              status.classList.add('is-success');
+            } else {
+              status.textContent = 'Something went wrong. Please try again.';
+              status.classList.add('is-error');
+            }
+          })
+          .catch(function () {
+            status.textContent = 'Something went wrong. Please try again.';
+            status.classList.add('is-error');
+          })
+          .finally(function () {
+            submitBtn.disabled = false;
+          });
+      });
+    })();
+  </script>
 
   <footer>
     <div class="footer-inner">
