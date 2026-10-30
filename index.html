@@ -316,6 +316,39 @@
       line-height: 1.4;
     }
 
+    .article-thumb {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.4rem 1.5rem;
+      background: #1e1d1a;
+      border-bottom: 2px solid var(--accent);
+      transition: background 0.2s;
+    }
+
+    .video-card:hover .article-thumb { background: #262420; }
+
+    .article-pub {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(228, 225, 218, 0.45);
+    }
+
+    .article-topic {
+      font-size: 1.7rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      color: #e4e1da;
+    }
+
+    .article-topic::after {
+      content: ".";
+      color: var(--accent);
+    }
+
     /* ─── About ───────────────────────────────── */
     .about {
       border-top: 1px solid var(--border);
@@ -616,7 +649,80 @@
     <div class="container">
       <span class="label">Portfolio</span>
       <h2>Recent work.</h2>
-      <p class="section-intro">Technical videos from my time on the Postman team, where I wrote, presented, and owned all technical content. Writing samples available on request.</p>
+      <p class="section-intro">Technical writing for developer tools companies, plus videos from my time on the Postman team, where I wrote, presented, and owned all technical content.</p>
+
+      <h3 class="track-title first">Writing</h3>
+      <div class="portfolio-grid">
+
+        <a href="https://www.merge.dev/blog/context-engineering-from-individual-prompts-to-company-wide-context" target="_blank" rel="noopener" class="video-card">
+          <span class="video-thumb article-thumb">
+            <span class="article-pub">Merge</span>
+            <span class="article-topic">Context engineering</span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Explainer</p>
+            <h3>Context Engineering: From Individual Prompts to Company-Wide Context</h3>
+          </div>
+        </a>
+
+        <a href="https://blog.postman.com/api-security-best-practices/" target="_blank" rel="noopener" class="video-card">
+          <span class="video-thumb article-thumb">
+            <span class="article-pub">Postman</span>
+            <span class="article-topic">API security</span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Guide</p>
+            <h3>API Security Best Practices: A Developer's Guide to Protecting Your APIs</h3>
+          </div>
+        </a>
+
+        <a href="https://blog.postman.com/what-is-api-rate-limiting/" target="_blank" rel="noopener" class="video-card">
+          <span class="video-thumb article-thumb">
+            <span class="article-pub">Postman</span>
+            <span class="article-topic">Rate limiting</span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Explainer</p>
+            <h3>What is API Rate Limiting? Understanding Request Throttling and Best Practices</h3>
+          </div>
+        </a>
+
+        <a href="https://blog.postman.com/json-schema-data-types/" target="_blank" rel="noopener" class="video-card">
+          <span class="video-thumb article-thumb">
+            <span class="article-pub">Postman</span>
+            <span class="article-topic">JSON Schema data types</span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Guide</p>
+            <h3>JSON Schema Data Types: A Complete Guide to Validation</h3>
+          </div>
+        </a>
+
+        <a href="https://blog.postman.com/understanding-asynchronous-apis/" target="_blank" rel="noopener" class="video-card">
+          <span class="video-thumb article-thumb">
+            <span class="article-pub">Postman</span>
+            <span class="article-topic">Asynchronous APIs</span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Explainer</p>
+            <h3>Understanding Asynchronous APIs</h3>
+          </div>
+        </a>
+
+        <a href="https://blog.postman.com/what-is-api-encryption/" target="_blank" rel="noopener" class="video-card">
+          <span class="video-thumb article-thumb">
+            <span class="article-pub">Postman</span>
+            <span class="article-topic">API encryption</span>
+          </span>
+          <div class="video-info">
+            <p class="video-tag">Explainer</p>
+            <h3>What is API Encryption?</h3>
+          </div>
+        </a>
+
+      </div>
+
+      <h3 class="track-title">Video</h3>
       <div class="portfolio-grid">
 
         <a href="https://www.youtube.com/watch?v=d93RZtFbufA" target="_blank" rel="noopener" class="video-card">
